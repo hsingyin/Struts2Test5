@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+ 
+<struts>
+
+	<package name="login_incpt" extends="struts-default">
+		<!-- 拦截器配置 -->
+		<interceptors>
+			<!-- 声明拦截器 -->
+			<interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor"></interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="loginInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+ 		 <!-- 定义全局Result -->    
+       <global-results>    
+           <result name="login">/login.jsp</result>    
+            <result name="error">/WEB-INF/jsp/error.jsp</result>    
+       </global-results> 
+       
+	 	<action name="index">
+	    	<result>index.jsp</result>
+	  	</action>   
+	</package>
+	
+	<package name="normal" namespace="/" extends="login_incpt">
+
+	  	<action name="logout" class="com.actions.LogoutAction" method="logout">
+	  		<result name="success">/WEB-INF/jsp/logout.jsp</result>
+	  	</action>
+	  	
+	  	<action name="jump" class="com.actions.LoginAction" method="jump">
+  			<result name="success">/WEB-INF/jsp/list.jsp</result>
+  		</action>
+	  	
+  		<action name="showList" class="com.actions.ListBookAction" method="showList">
+  			<result name="success">/WEB-INF/jsp/list.jsp</result>
+  			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+  		</action>
+
+	</package>
+	<!-- 不拦截登录操作 -->
+	<package name="login" extends="struts-default">
+		<action name="login" class="com.actions.LoginAction" method="login">
+	  		<result name="success">/WEB-INF/jsp/hello.jsp</result>
+	  		<result name="error">/WEB-INF/jsp/error.jsp</result>
+	  	</action>
+	</package>
+	<!-- BookInfoDAO操作 -->
+ 	<package name="bookDAO" extends="struts-default">
+        <action name="addBookInfo" class="com.actions.ListBookAction"
+            method="add">
+            <result name="list" type="redirect">listProduct</result>
+        </action>
+        <action name="deleteBookInfo" class="com.actions.ListBookAction"
+            method="delete">
+            <result name="list" type="redirect">listProduct</result>
+        </action>
+        <action name="editBookInfo" class="com.actions.ListBookAction"
+            method="edit">
+            <result name="edit">/product/edit.jsp</result>
+        </action>
+        <action name="updateBookInfo" class="com.actions.ListBookAction"
+            method="update">
+            <result name="list" type="redirect">listProduct</result>
+        </action>
+        <action name="listBookInfo" class="com.actions.ListBookAction"
+            method="list">
+            <result name="listJsp">/WEB-INF/jsp/listBooks.jsp</result>
+        </action>
+        
+    </package>
+</struts>
