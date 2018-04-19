@@ -28,6 +28,9 @@
 			          		<s:if test="#session.isLogin==true">
 			          			<span href="#"><s:property value="#session.userName"/></span>
 			          		</s:if>
+			          		<s:if test="#session.isLogin==null">
+			          			
+			          		</s:if>
 			          		<s:if test="#session.isLogin==false">
 			          			<span href="#">请登录</span>
 			          		</s:if >

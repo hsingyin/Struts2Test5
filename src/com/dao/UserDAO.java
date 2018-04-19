@@ -10,7 +10,26 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+
 public class UserDAO {
+	
+	public static Boolean loginCheck(String name,String pwd){
+		
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        
+		String hql = "from User where name='"+name+"' and passwd='"+pwd+"'";
+		Boolean flag = false;
+		List<User> u = s.createQuery(hql).list();
+		System.out.println(u);
+		if (u.size()>0) {
+			flag = true;
+		}
+		return flag;
+        
+    }
+	
 	
 	 public void add(User user) {
 	        List<User> result = new ArrayList();
@@ -38,6 +57,7 @@ public class UserDAO {
 	     return res;
 		 
 	 }
+	
 	 public void delete(int id) {
 	        List<User> result = new ArrayList();
 	 

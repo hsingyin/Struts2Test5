@@ -48,7 +48,7 @@
 	<package name="login" extends="struts-default">
 		<action name="login" class="com.actions.LoginAction" method="login">
 	  		<result name="success">/WEB-INF/jsp/hello.jsp</result>
-	  		<result name="error">/WEB-INF/jsp/error.jsp</result>
+	  		<result name="error">/WEB-INF/jsp/loginError.jsp</result>
 	  	</action>
 	</package>
 	<!-- BookInfoDAO操作 -->
